@@ -13,10 +13,10 @@ public class ServeSocket {
 			System.out.println("Sala vazia, aguardando conexão com outro usuário ...");
 			
 			while (true) {
-				Socket client = server.accept();
-				System.out.println("Um novo usuário acabou de entrar!!!");
+				Socket cliente = server.accept();
+				System.out.println("Um novo usuário acabou de entrar ( ͡❛ ‿ ͡❛) !!!");
 
-				new Thread(new MultiChat(client)).start();
+				new Thread(new MultiChat(cliente)).start();
 
 			}
 

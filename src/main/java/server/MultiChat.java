@@ -6,28 +6,29 @@ import java.util.Scanner;
 
 public class MultiChat implements Runnable {
 
-	private Socket client;
+	private Socket cliente;
 
-	public MultiChat(Socket client) {
-		this.client = client;
+	public MultiChat(Socket cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
 	public void run() {
-		int count = 0;
+		Scanner response = new Scanner(System.in);
 		Scanner input;
 		try {
-			input = new Scanner(client.getInputStream());
-			PrintStream output = new PrintStream(client.getOutputStream());
+			input = new Scanner(cliente.getInputStream());
+			PrintStream output = new PrintStream(cliente.getOutputStream());
 
 			String inputGetMessage = "";
-
+			String sendResposse = "";
 			while (!inputGetMessage.toUpperCase().equals("SAIR")) {
 				inputGetMessage = input.nextLine();
 				System.out.println(inputGetMessage);
-				output.println(++count);
+				sendResposse = response.nextLine();
+				output.println(sendResposse);
 			}
-			client.close();
+			cliente.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
