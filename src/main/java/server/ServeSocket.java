@@ -2,40 +2,29 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class ServeSocket {
 
 	public void executa() {
 		try {
+			// Instancia qual porta o socket vai trabalhar
 			ServerSocket server = new ServerSocket(54321);
-
-			String inputGetMessage = "";
-
-			while (!inputGetMessage.toUpperCase().equals("FECHAR")) {
-
-				System.out.println("Awaiting");
+			
+			System.out.println("Sala vazia, aguardando conexão com outro usuário ...");
+			
+			while (true) {
 				Socket client = server.accept();
-				System.out.println("Connected");
+				System.out.println("Um novo usuário acabou de entrar!!!");
 
-				Scanner input = new Scanner(client.getInputStream());
+				new Thread(new MultiChat(client)).start();
 
-				inputGetMessage = "";
-
-				while (!inputGetMessage.toUpperCase().equals("SAIR")
-						&& !inputGetMessage.toUpperCase().equals("FECHAR")) {
-					inputGetMessage = input.nextLine();
-					System.out.println(inputGetMessage);
-				}
-				client.close();
 			}
 
-			server.close();
+//			server.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("Server down");
 	}
 
 }
